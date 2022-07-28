@@ -1,0 +1,31 @@
+type Compte {
+    id: ID!,
+    numero: Int!,
+    solde: Float!,
+    dateCreation: Date!
+    typeCompte: String!
+    client: Client!
+}
+
+extend type Query {
+    getAllComptes: [Compte]!
+    getCompte(id: ID!) : Compte!
+}
+
+extend type Mutation {
+    createCompte(id: ID,
+            numero: Int!,
+            solde: Float!,
+            dateCreation: Date!
+            typeCompte: String!,
+            client: ID!) : Compte!
+
+    updateCompte(id: ID,
+        numero: Int!,
+        solde: Float!,
+        dateCreation: Date!
+        typeCompte: String!,
+        client: ID!) : Compte!
+
+    deleteCompte(id: ID!): Boolean
+}

@@ -1,0 +1,42 @@
+scalar Date
+
+type Client {
+    id: ID!
+    CNE: String!
+    code: String!
+    firstName: String!
+    lastName: String!
+    phoneNumber: String!
+    email: String!
+    address: String
+    dateNaissance: Date
+}
+
+# Root
+type Query {
+    getAllClients: [Client]!
+    getClient(id: ID!): Client
+}
+
+# Root
+type Mutation {
+    createClient(id: ID,
+            CNE: String!,
+            firstName: String!,
+            lastName: String!,
+            phoneNumber: String,
+            email: String!,
+            address: String,
+            dateNaissance: Date): Client!
+
+    updateClient(id: ID!,
+            CNE: String!,
+            firstName: String!,
+            lastName: String!,
+            phoneNumber: String,
+            email: String!,
+            address: String,
+            dateNaissance: Date): Client!
+
+    deleteClient(id: ID!): Boolean
+}
