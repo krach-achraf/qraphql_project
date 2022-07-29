@@ -44,4 +44,11 @@ public class Operation {
 
     @ManyToOne
     private Compte compte;
+
+    public Operation(Date date, float montant, String typeOperation, Compte compte) {
+        this.date = date;
+        this.montant = montant;
+        this.typeOperation = typeOperation;
+        this.compte = compte;
+    }
 }

@@ -1,9 +1,9 @@
 type Operation {
-    id: ID!,
-    numero: Int!,
-    date: Date!,
-    montant: Float!,
-    typeOperation: String!,
+    id: ID!
+    numero: Int!
+    date: Date!
+    montant: Float!
+    typeOperation: String!
     compte: Compte!
 }
 
@@ -14,18 +14,16 @@ extend type Query {
 
 extend type Mutation {
     createOperation(id: ID,
-            numero: Int!,
             date: Date!,
             montant: Float!,
             typeOperation: String!,
             compte: ID!) : Operation
 
     updateOperation(id: ID!,
-            numero: Int!,
             date: Date!,
             montant: Float!,
             typeOperation: String!,
             compte: ID!) : Operation
 
-    deleteOperation(id: ID!): Boolean
+    deleteOperation(id: ID!): void
 }

@@ -1,4 +1,5 @@
 scalar Date
+scalar void
 
 type Client {
     id: ID!
@@ -38,5 +39,7 @@ type Mutation {
             address: String,
             dateNaissance: Date): Client!
 
-    deleteClient(id: ID!): Boolean
+    deleteClient(id: ID!): void
 }
+
+

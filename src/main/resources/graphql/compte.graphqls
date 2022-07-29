@@ -1,7 +1,7 @@
 type Compte {
-    id: ID!,
-    numero: Int!,
-    solde: Float!,
+    id: ID!
+    numero: Int!
+    solde: Float!
     dateCreation: Date!
     typeCompte: String!
     client: Client!
@@ -14,18 +14,16 @@ extend type Query {
 
 extend type Mutation {
     createCompte(id: ID,
-            numero: Int!,
             solde: Float!,
             dateCreation: Date!
             typeCompte: String!,
             client: ID!) : Compte!
 
     updateCompte(id: ID,
-        numero: Int!,
         solde: Float!,
         dateCreation: Date!
         typeCompte: String!,
         client: ID!) : Compte!
 
-    deleteCompte(id: ID!): Boolean
+    deleteCompte(id: ID!): void
 }

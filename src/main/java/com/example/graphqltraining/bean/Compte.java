@@ -45,4 +45,11 @@ public class Compte {
 
     @ManyToOne
     private Client client;
+
+    public Compte(float solde, Date dateCreation, String typeCompte, Client client) {
+        this.solde = solde;
+        this.dateCreation = dateCreation;
+        this.typeCompte = typeCompte;
+        this.client = client;
+    }
 }

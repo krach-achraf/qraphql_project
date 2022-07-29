@@ -3,6 +3,7 @@ package com.example.graphqltraining.bean;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -46,6 +47,13 @@ public class Client {
 
     @NotNull
     @NotBlank
+    @Email
+    @Column(nullable = false, length = 50)
+    @Size(min = 10, max = 50)
+    private String email;
+
+    @NotNull
+    @NotBlank
     @Column(nullable = false, length = 20)
     @Size(min= 9, max = 20)
     private String phoneNumber;
@@ -53,4 +61,14 @@ public class Client {
     private String address;
 
     private Date dateNaissance;
+
+    public Client(String CNE, String firstName, String lastName, String email, String phoneNumber, String address, Date dateNaissance) {
+        this.CNE = CNE;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.dateNaissance = dateNaissance;
+    }
 }
