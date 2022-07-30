@@ -8,13 +8,12 @@ type Compte {
 }
 
 extend type Query {
-    getAllComptes: [Compte]!
+    getAllComptes: [Compte]
     getCompte(id: ID!) : Compte!
 }
 
 extend type Mutation {
-    createCompte(id: ID,
-            solde: Float!,
+    createCompte(solde: Float!,
             dateCreation: Date!
             typeCompte: String!,
             client: ID!) : Compte!

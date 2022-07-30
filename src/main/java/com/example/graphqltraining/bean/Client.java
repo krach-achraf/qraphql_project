@@ -3,20 +3,19 @@ package com.example.graphqltraining.bean;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Table(name = "clients")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
 public class Client {
+
     @SequenceGenerator(name = "clients_seq", sequenceName = "clients_seq", allocationSize = 1)
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clients_seq")
@@ -47,7 +46,6 @@ public class Client {
 
     @NotNull
     @NotBlank
-    @Email
     @Column(nullable = false, length = 50)
     @Size(min = 10, max = 50)
     private String email;

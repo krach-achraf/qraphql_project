@@ -8,11 +8,13 @@ import com.example.graphqltraining.repository.CompteRepository;
 import com.example.graphqltraining.repository.OperationRepository;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
+@Slf4j
 @Component
 @AllArgsConstructor
 public class Mutation implements GraphQLMutationResolver {
@@ -28,10 +30,12 @@ public class Mutation implements GraphQLMutationResolver {
                                    String email,
                                    String address,
                                    Date dateNaissance) {
-
+        System.out.println("Creating a client ");
         Client client = new Client(CNE, firstName, lastName, phoneNumber, email, address, dateNaissance);
+        System.out.println("Client's infos : " + client.getCNE() + " " + client.getFirstName() + " " + client.getLastName());
         client.setCode("code101");
-        return clientRepository.save(client);
+        clientRepository.save(client);
+        return client;
     }
 
     @Transactional

@@ -14,20 +14,19 @@ type Client {
 
 # Root
 type Query {
-    getAllClients: [Client]!
+    getAllClients: [Client]
     getClient(id: ID!): Client
 }
 
 # Root
 type Mutation {
-    createClient(id: ID,
-            CNE: String!,
+    createClient(CNE: String!,
             firstName: String!,
             lastName: String!,
             phoneNumber: String,
             email: String!,
             address: String,
-            dateNaissance: Date): Client!
+            dateNaissance: Date): Client
 
     updateClient(id: ID!,
             CNE: String!,
