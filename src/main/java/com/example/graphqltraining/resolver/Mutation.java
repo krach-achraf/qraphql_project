@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Component
 @AllArgsConstructor
@@ -37,13 +36,13 @@ public class Mutation implements GraphQLMutationResolver {
 
     @Transactional
     public Client updateClient(Long id,
-                        String CNE,
-                        String firstName,
-                        String lastName,
-                        String phoneNumber,
-                        String email,
-                        String address,
-                        Date dateNaissance){
+                                String CNE,
+                                String firstName,
+                                String lastName,
+                                String phoneNumber,
+                                String email,
+                                String address,
+                                Date dateNaissance){
         Client client = clientRepository.getReferenceById(id);
         client.setCNE(CNE);
         client.setFirstName(firstName);
@@ -56,8 +55,9 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     @Transactional
-    public void deleteClient(Long id){
-         clientRepository.deleteById(id);
+    public boolean deleteClient(Long id){
+        clientRepository.deleteById(id);
+        return true;
     }
 
     @Transactional
@@ -87,8 +87,9 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     @Transactional
-    public void deleteCompte(Long id){
+    public boolean deleteCompte(Long id){
         compteRepository.deleteById(id);
+        return true;
     }
 
     @Transactional
@@ -118,8 +119,9 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     @Transactional
-    public void deleteOperation(Long id){
+    public boolean deleteOperation(Long id){
         operationRepository.deleteById(id);
+        return true;
     }
 
 }

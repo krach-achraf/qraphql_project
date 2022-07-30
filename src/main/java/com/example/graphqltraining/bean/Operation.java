@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Table(name = "operations")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

@@ -25,5 +25,5 @@ extend type Mutation {
             typeOperation: String!,
             compte: ID!) : Operation
 
-    deleteOperation(id: ID!): void
+    deleteOperation(id: ID!): Boolean
 }
