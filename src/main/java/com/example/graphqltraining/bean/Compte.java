@@ -22,24 +22,21 @@ public class Compte {
     private Long id;
 
     @NotNull
-    @NotBlank
     @Column(nullable = false)
     private int numero;
 
     @NotNull
-    @NotBlank
     @Column(nullable = false)
     private float solde;
 
     @NotNull
-    @NotBlank
     @Column(nullable = false)
     private Date dateCreation;
 
     @NotNull
     @NotBlank
     @Column(nullable = false, length = 15)
-    @Size(min = 9, max = 15)
+    @Size(min = 5, max = 15)
     private String typeCompte;
 
     @ManyToOne

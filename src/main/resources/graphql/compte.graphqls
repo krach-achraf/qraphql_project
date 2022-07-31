@@ -8,7 +8,7 @@ type Compte {
 }
 
 extend type Query {
-    getAllComptes: [Compte]
+    getAllComptes: [Compte]!
     getCompte(id: ID!) : Compte!
 }
 

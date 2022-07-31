@@ -30,9 +30,7 @@ public class Mutation implements GraphQLMutationResolver {
                                    String email,
                                    String address,
                                    Date dateNaissance) {
-        System.out.println("Creating a client ");
         Client client = new Client(CNE, firstName, lastName, phoneNumber, email, address, dateNaissance);
-        System.out.println("Client's infos : " + client.getCNE() + " " + client.getFirstName() + " " + client.getLastName());
         client.setCode("code101");
         clientRepository.save(client);
         return client;

@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @AllArgsConstructor
@@ -26,7 +25,6 @@ public class Query implements GraphQLQueryResolver {
     }
 
     public Client getClient(Long id){
-        Optional<Client> client = clientRepository.findById(id);
         return clientRepository.getReferenceById(id);
     }
 
