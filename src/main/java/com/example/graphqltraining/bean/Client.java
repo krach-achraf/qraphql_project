@@ -26,7 +26,7 @@ public class Client {
     private String CNE;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private String code;
 
     @NotNull

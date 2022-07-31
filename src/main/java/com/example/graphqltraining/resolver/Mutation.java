@@ -6,6 +6,8 @@ import com.example.graphqltraining.bean.Operation;
 import com.example.graphqltraining.repository.ClientRepository;
 import com.example.graphqltraining.repository.CompteRepository;
 import com.example.graphqltraining.repository.OperationRepository;
+import com.example.graphqltraining.utils.CodeUtil;
+import com.example.graphqltraining.utils.NumeroUtil;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +33,7 @@ public class Mutation implements GraphQLMutationResolver {
                                    String address,
                                    Date dateNaissance) {
         Client client = new Client(CNE, firstName, lastName, phoneNumber, email, address, dateNaissance);
-        client.setCode("code101");
+        client.setCode(CodeUtil.generateCode(10));
         clientRepository.save(client);
         return client;
     }
@@ -69,7 +71,7 @@ public class Mutation implements GraphQLMutationResolver {
                                 Long idClient){
         Client client = clientRepository.getReferenceById(idClient);
         Compte compte = new Compte(solde, dateCreation, typeCompte, client);
-        compte.setNumero(1101);
+        compte.setNumero(NumeroUtil.generateNumero());
         return compteRepository.save(compte);
     }
 
@@ -101,7 +103,7 @@ public class Mutation implements GraphQLMutationResolver {
                                      Long idCompte){
         Compte compte = compteRepository.getReferenceById(idCompte);
         Operation operation = new Operation(date, montant, typeOpration, compte);
-        operation.setNumero(1101);
+        operation.setNumero(NumeroUtil.generateNumero());
         return operationRepository.save(operation);
     }
 
