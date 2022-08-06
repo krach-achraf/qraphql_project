@@ -18,11 +18,5 @@ extend type Mutation {
             typeOperation: String!,
             compte: ID!) : Operation!
 
-    updateOperation(id: ID!,
-            date: Date!,
-            montant: Float!,
-            typeOperation: String!,
-            compte: ID!) : Operation!
-
     deleteOperation(id: ID!): Boolean
 }

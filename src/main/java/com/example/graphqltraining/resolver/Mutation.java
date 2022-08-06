@@ -5,6 +5,7 @@ import com.example.graphqltraining.bean.Compte;
 import com.example.graphqltraining.bean.Operation;
 import com.example.graphqltraining.exception.ClientAlreadyExist;
 import com.example.graphqltraining.exception.NotFoundException;
+import com.example.graphqltraining.exception.SoldeInsuffisantException;
 import com.example.graphqltraining.exception.ValidationException;
 import com.example.graphqltraining.repository.ClientRepository;
 import com.example.graphqltraining.repository.CompteRepository;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -129,8 +131,20 @@ public class Mutation implements GraphQLMutationResolver {
                                      String typeOpration,
                                      Long idCompte){
         if(!typeOpration.trim().equals("")){
-            if(compteRepository.findById(idCompte).isPresent()){
-                Compte compte = compteRepository.getReferenceById(idCompte);
+            Optional<Compte> optionalCompte = compteRepository.findById(idCompte);
+            if(optionalCompte.isPresent()){
+                Compte compte = optionalCompte.get();
+                if(typeOpration.toLowerCase().equals("versement")){
+                    compte.setSolde(compte.getSolde() + montant);
+                    compteRepository.save(compte);
+                }else{
+                    if(compte.getSolde() < montant)
+                        throw new SoldeInsuffisantException("Solde insuffisant");
+                    else{
+                        compte.setSolde(compte.getSolde() - montant);
+                        compteRepository.save(compte);
+                    }
+                }
                 Operation operation = new Operation(date, montant, typeOpration, compte);
                 operation.setNumero(NumeroUtil.generateNumero());
                 return operationRepository.save(operation);
@@ -140,30 +154,18 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     @Transactional
-    public Operation updateOperation(Long id,
-                                     Date date,
-                                     float montant,
-                                     String typeOpration,
-                                     Long idCompte){
-        if(!typeOpration.trim().equals("")){
-            if(operationRepository.findById(id).isPresent()){
-                if(compteRepository.findById(idCompte).isPresent()){
-                    Operation operation = operationRepository.getReferenceById(id);
-                    Compte compte = compteRepository.getReferenceById(idCompte);
-                    operation.setDate(date);
-                    operation.setMontant(montant);
-                    operation.setTypeOperation(typeOpration);
-                    operation.setCompte(compte);
-                    return operationRepository.save(operation);
-                }else throw new NotFoundException("Compte not found");
-            }else throw new NotFoundException("Operation not found");
-
-        }else throw new ValidationException("Send all the values");
-    }
-
-    @Transactional
     public boolean deleteOperation(Long id){
-        if (operationRepository.findById(id).isPresent()) {
+        Optional<Operation> optionalOperation = operationRepository.findById(id);
+        if (optionalOperation.isPresent()) {
+            Operation operation = optionalOperation.get();
+            Compte compte = operation.getCompte();
+            if(operation.getTypeOperation().toLowerCase().equals("versement")){
+                compte.setSolde(compte.getSolde() - operation.getMontant());
+                compteRepository.save(compte);
+            }else{
+                compte.setSolde(compte.getSolde() + operation.getMontant());
+                compteRepository.save(compte);
+            }
             operationRepository.deleteById(id);
             return true;
         }else throw new NotFoundException("Operation not found");
